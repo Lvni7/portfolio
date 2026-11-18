@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   server: {
-    // En développement, Vite transmet les appels /api au serveur Express.
+    // Envoie les calls /api vers Express
     proxy: {
       '/api': 'http://localhost:3001',
     },

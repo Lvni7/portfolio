@@ -1,9 +1,8 @@
--- Structure de la base, d'après le MPD.
--- IF NOT EXISTS : relancer ce fichier ne modifie pas les tables existantes
--- et n'efface aucune donnée.
--- Les tables skill et project_skill seront ajoutées après l'atelier.
+-- Structure de la base reprise du MPD
+-- On peut relancer ce fichier sans rien perdre
+-- Skill et project_skill arrivent après l'atelier
 
--- Le site présente une seule personne : le CHECK interdit un deuxième profil.
+-- Un seul profil possible
 CREATE TABLE IF NOT EXISTS profile (
   profile_id INT PRIMARY KEY DEFAULT 1 CHECK (profile_id = 1),
   first_name VARCHAR(50) NOT NULL,
@@ -19,7 +18,7 @@ CREATE TABLE IF NOT EXISTS profile (
   linkedin_url VARCHAR(255) NULL
 );
 
--- On stocke uniquement le hash du mot de passe, jamais le mot de passe lui-même.
+-- On store juste le hash du mot de passe
 CREATE TABLE IF NOT EXISTS admin (
   admin_id INT PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(255) NOT NULL UNIQUE,
@@ -28,7 +27,7 @@ CREATE TABLE IF NOT EXISTS admin (
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
 );
 
--- Une même table regroupe les projets et les expériences, distingués par type.
+-- Projets et expériences dans la même table
 CREATE TABLE IF NOT EXISTS project (
   project_id INT PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(150) NOT NULL,
@@ -43,7 +42,7 @@ CREATE TABLE IF NOT EXISTS project (
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
 );
 
--- Messages reçus par le formulaire de contact.
+-- Messages du form de contact
 CREATE TABLE IF NOT EXISTS message (
   message_id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,

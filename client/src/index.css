@@ -1,10 +1,34 @@
+/* Styles de base */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
 }
 
+/* Contenu centré */
 main {
   max-width: 48rem;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+/* Un champ par ligne */
+label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+input,
+textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  font: inherit;
+}
+
+/* Piège à bots hors de l'écran */
+.honeypot {
+  position: absolute;
+  left: -9999px;
 }

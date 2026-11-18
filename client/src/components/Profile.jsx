@@ -1,4 +1,6 @@
+// Haut de la page
 function Profile({ profile }) {
+  // Profil encore vide
   if (!profile) {
     return <p>Profil à compléter.</p>
   }
@@ -10,7 +12,10 @@ function Profile({ profile }) {
       </h1>
       <p>{profile.title}</p>
       <p>{profile.bio}</p>
+      {/* Affiché seulement si la ville existe */}
       {profile.city && <p>{profile.city}</p>}
+      {/* Lance le download du CV */}
+      {profile.cv && <a href="/api/cv">Télécharger mon CV</a>}
 
       <ul>
         <li>

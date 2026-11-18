@@ -1,4 +1,4 @@
-// Transforme 2026-09-01 en « septembre 2026 ».
+// Transforme la date en mois et année
 function formatDate(date) {
   return new Date(date).toLocaleDateString('fr-FR', {
     month: 'long',
@@ -7,18 +7,20 @@ function formatDate(date) {
   })
 }
 
+// Bloc réutilisable pour une liste
 function ProjectList({ title, items }) {
-  // Pas de section vide sur la page.
+  // Rien à afficher si c'est vide
   if (items.length === 0) return null
 
   return (
     <section>
       <h2>{title}</h2>
-      {/* key aide React à reconnaître chaque élément de la liste. */}
+      {/* Un article par élément */}
       {items.map((item) => (
         <article key={item.project_id}>
           <h3>{item.title}</h3>
           {item.organization && <p>{item.organization}</p>}
+          {/* Sans date de fin c'est encore en cours */}
           {item.start_date && (
             <p>
               {formatDate(item.start_date)} –{' '}
@@ -37,6 +39,7 @@ function ProjectList({ title, items }) {
   )
 }
 
+// Sépare les projets et les expériences
 function Projects({ projects }) {
   return (
     <>
