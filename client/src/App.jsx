@@ -1,24 +1,46 @@
 import { useEffect, useState } from 'react'
+import Profile from './components/Profile.jsx'
+import Projects from './components/Projects.jsx'
+
+// Appelle une route de l'API et renvoie sa réponse JSON.
+async function getJson(url) {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`Erreur ${response.status}`)
+  return response.json()
+}
 
 function App() {
-  // Le state contient le texte affiché : quand il change, React met la page à jour.
-  const [message, setMessage] = useState('Connexion en cours…')
+  const [data, setData] = useState(null)
+  const [hasError, setHasError] = useState(false)
 
   // Le tableau vide [] signifie : exécuter ce code une fois, à l'ouverture de la page.
   useEffect(() => {
-    fetch('/api/health')
-      .then((response) => {
-        if (!response.ok) throw new Error('Réponse invalide')
-        return response.json()
-      })
-      .then((data) => setMessage(`MySQL ${data.database} connecté`))
-      .catch(() => setMessage('Base de données indisponible'))
+    Promise.all([getJson('/api/profile'), getJson('/api/projects')])
+      .then(([profile, projects]) => setData({ profile, projects }))
+      .catch(() => setHasError(true))
   }, [])
 
+  if (hasError) {
+    return (
+      <main>
+        <p>Le site est momentanément indisponible.</p>
+      </main>
+    )
+  }
+
+  if (!data) {
+    return (
+      <main>
+        <p>Chargement…</p>
+      </main>
+    )
+  }
+
+  // Les données sont transmises aux composants par leurs props.
   return (
     <main>
-      <h1>Portfolio de Leni Mette</h1>
-      <p>{message}</p>
+      <Profile profile={data.profile} />
+      <Projects projects={data.projects} />
     </main>
   )
 }
