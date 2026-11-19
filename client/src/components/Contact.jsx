@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Form vide
 const EMPTY_FORM = { name: '', email: '', subject: '', content: '', website: '' }
 
-function Contact() {
+function Contact({ email }) {
   // Ce que le user tape
   const [form, setForm] = useState(EMPTY_FORM)
   // True pendant l'envoi
@@ -51,9 +51,15 @@ function Contact() {
   }
 
   return (
-    <section>
-      <h2>Contact</h2>
-      <form onSubmit={handleSubmit}>
+    <section className="contact" id="contact">
+      <h2>
+        Une idée ou un <em>stage</em> à proposer&nbsp;?
+      </h2>
+      <p className="contact-intro">
+        Écrivez-moi ici ou à <a href={`mailto:${email}`}>{email}</a>
+      </p>
+
+      <form className="contact-form" onSubmit={handleSubmit}>
         <label>
           Nom
           <input
@@ -117,7 +123,7 @@ function Contact() {
         </div>
 
         {/* Bloqué pendant l'envoi */}
-        <button type="submit" disabled={isSending}>
+        <button className="button" type="submit" disabled={isSending}>
           {isSending ? 'Envoi…' : 'Envoyer'}
         </button>
 

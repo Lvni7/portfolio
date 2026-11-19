@@ -12,6 +12,8 @@ const MAX_MESSAGES_PER_HOUR = 20
 
 // Récupère le JSON envoyé par le front
 app.use(express.json({ limit: '32kb' }))
+// Rend les images accessibles au front
+app.use('/uploads', express.static(uploadsDir))
 
 // Connexions MySQL prêtes à servir
 const db = mysql.createPool({
@@ -21,12 +23,6 @@ const db = mysql.createPool({
   database: process.env.DB_NAME,
   // Évite les décalages de dates
   dateStrings: true,
-})
-
-// Route pour tester MySQL
-app.get('/api/health', async (req, res) => {
-  const [rows] = await db.query('SELECT VERSION() AS version')
-  res.json({ database: rows[0].version })
 })
 
 // Route du profil
@@ -40,6 +36,21 @@ app.get('/api/projects', async (req, res) => {
   const [rows] = await db.query(
     'SELECT * FROM project ORDER BY start_date DESC, project_id DESC',
   )
+  // On ajoute les compétences de chaque projet
+  const [links] = await db.query(
+    'SELECT ps.project_id, s.name FROM project_skill ps JOIN skill s ON s.skill_id = ps.skill_id ORDER BY s.skill_id',
+  )
+  for (const project of rows) {
+    project.skills = links
+      .filter((link) => link.project_id === project.project_id)
+      .map((link) => link.name)
+  }
+  res.json(rows)
+})
+
+// Route des compétences
+app.get('/api/skills', async (req, res) => {
+  const [rows] = await db.query('SELECT * FROM skill ORDER BY skill_id')
   res.json(rows)
 })
 

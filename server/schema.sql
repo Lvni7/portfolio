@@ -1,6 +1,5 @@
 -- Structure de la base reprise du MPD
 -- On peut relancer ce fichier sans rien perdre
--- Skill et project_skill arrivent après l'atelier
 
 -- Un seul profil possible
 CREATE TABLE IF NOT EXISTS profile (
@@ -53,4 +52,23 @@ CREATE TABLE IF NOT EXISTS message (
   is_read BOOLEAN NOT NULL DEFAULT FALSE,
   profile_id INT NOT NULL,
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
+);
+
+-- Les compétences techniques ou transversales du profil
+CREATE TABLE IF NOT EXISTS skill (
+  skill_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  type ENUM('technical', 'soft') NOT NULL,
+  profile_id INT NOT NULL,
+  FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
+);
+
+-- Lien entre projets et compétences
+-- Supprimer un projet ou une compétence supprime ses liens
+CREATE TABLE IF NOT EXISTS project_skill (
+  project_id INT NOT NULL,
+  skill_id INT NOT NULL,
+  PRIMARY KEY (project_id, skill_id),
+  FOREIGN KEY (project_id) REFERENCES project (project_id) ON DELETE CASCADE,
+  FOREIGN KEY (skill_id) REFERENCES skill (skill_id) ON DELETE CASCADE
 );
