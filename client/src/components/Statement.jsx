@@ -1,10 +1,10 @@
 import { FlashIcon } from 'hugeicons-react'
 
-// Mes services autour de la phrase comme sur l'inspiration
+// mes services autour de la phrase comme sur l'inspi
 const LEFT_PILLS = ['SaaS', 'Applis mobiles', 'Sites web']
 const RIGHT_PILLS = ['Logiciels métier', 'Outils IA', 'Automatisation']
 
-// Une colonne de bulles
+// une colonne de bulles
 function Pills({ items, side }) {
   return (
     <ul className={`statement-pills statement-pills-${side}`}>
@@ -20,7 +20,7 @@ function Pills({ items, side }) {
   )
 }
 
-// La grande phrase qui explique ce que je fais
+// la grande phrase qui explique ce que je fais
 function Statement() {
   return (
     <section className="statement">
@@ -30,7 +30,7 @@ function Statement() {
         <p className="statement-label">Bonjour !</p>
         <p className="statement-text">
           Je construis votre SaaS, appli mobile, site web ou logiciels métier{' '}
-          {/* Le résultat à la ligne avec le gain en rouge */}
+          {/* le résultat à la ligne avec le gain en rouge */}
           <span className="statement-result">
             pour que votre activité gagne{' '}
             <strong>des clients, de l’argent et du temps.</strong>

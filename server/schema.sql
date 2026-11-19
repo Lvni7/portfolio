@@ -1,7 +1,7 @@
--- Structure de la base reprise du MPD
--- On peut relancer ce fichier sans rien perdre
+-- structure de la base reprise du MPD
+-- on peut re-run ce fichier sans rien perdre
 
--- Un seul profil possible
+-- un seul profil possible
 CREATE TABLE IF NOT EXISTS profile (
   profile_id INT PRIMARY KEY DEFAULT 1 CHECK (profile_id = 1),
   first_name VARCHAR(50) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS profile (
   linkedin_url VARCHAR(255) NULL
 );
 
--- On store juste le hash du mot de passe
+-- on store juste le hash du password
 CREATE TABLE IF NOT EXISTS admin (
   admin_id INT PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(255) NOT NULL UNIQUE,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS admin (
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
 );
 
--- Projets et expériences dans la même table
+-- projets et expériences dans la même table
 CREATE TABLE IF NOT EXISTS project (
   project_id INT PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(150) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS project (
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
 );
 
--- Messages du form de contact
+-- messages du form de contact
 CREATE TABLE IF NOT EXISTS message (
   message_id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS message (
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
 );
 
--- Les compétences techniques ou transversales du profil
+-- les skills techniques ou transversales du profil
 CREATE TABLE IF NOT EXISTS skill (
   skill_id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS skill (
   FOREIGN KEY (profile_id) REFERENCES profile (profile_id)
 );
 
--- Lien entre projets et compétences
--- Supprimer un projet ou une compétence supprime ses liens
+-- lien entre projets et skills
+-- delete un projet ou un skill delete aussi ses liens
 CREATE TABLE IF NOT EXISTS project_skill (
   project_id INT NOT NULL,
   skill_id INT NOT NULL,

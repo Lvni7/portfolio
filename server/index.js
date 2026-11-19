@@ -3,40 +3,40 @@ import express from 'express'
 import mysql from 'mysql2/promise'
 import { validateMessage } from './validateMessage.js'
 
-// Notre serveur
+// notre server
 const app = express()
-// Dossier des fichiers uploadés
+// le dossier des uploads
 const uploadsDir = path.join(import.meta.dirname, 'uploads')
-// Max de messages par heure
+// max de messages par heure
 const MAX_MESSAGES_PER_HOUR = 20
 
-// Récupère le JSON envoyé par le front
+// parse le JSON envoyé par le front
 app.use(express.json({ limit: '32kb' }))
-// Rend les images accessibles au front
+// expose les images au front
 app.use('/uploads', express.static(uploadsDir))
 
-// Connexions MySQL prêtes à servir
+// pool de connexions MySQL ready
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  // Évite les décalages de dates
+  // évite les bugs de dates
   dateStrings: true,
 })
 
-// Route du profil
+// get le profil
 app.get('/api/profile', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM profile WHERE profile_id = 1')
   res.json(rows[0] ?? null)
 })
 
-// Route des projets du plus récent au plus ancien
+// get les projets du plus récent au plus ancien
 app.get('/api/projects', async (req, res) => {
   const [rows] = await db.query(
     'SELECT * FROM project ORDER BY start_date DESC, project_id DESC',
   )
-  // On ajoute les compétences de chaque projet
+  // on add les skills de chaque projet
   const [links] = await db.query(
     'SELECT ps.project_id, s.name FROM project_skill ps JOIN skill s ON s.skill_id = ps.skill_id ORDER BY s.skill_id',
   )
@@ -48,40 +48,40 @@ app.get('/api/projects', async (req, res) => {
   res.json(rows)
 })
 
-// Route des compétences
+// get les skills
 app.get('/api/skills', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM skill ORDER BY skill_id')
   res.json(rows)
 })
 
-// Route pour download le CV
+// download le CV
 app.get('/api/cv', async (req, res) => {
   const [rows] = await db.query('SELECT cv FROM profile WHERE profile_id = 1')
   const cv = rows[0]?.cv
 
-  // Pas de CV en base
+  // pas de CV en base
   if (!cv) {
     return res.status(404).json({ error: 'CV indisponible' })
   }
-  // Root bloque tout accès hors du dossier uploads
+  // root bloque tout accès hors des uploads
   res.download(cv, 'Leni-Mette-CV.pdf', { root: uploadsDir })
 })
 
-// Route du form de contact
+// le form de contact
 app.post('/api/messages', async (req, res) => {
-  // Champ caché rempli donc c'est un bot
-  // On fait semblant et on ne store rien
+  // champ caché rempli donc c'est un bot
+  // on fake le succès et on store rien
   if (req.body?.website) {
     return res.status(201).json({ ok: true })
   }
 
-  // On check les données reçues
+  // on check les data reçues
   const { message, error } = validateMessage(req.body)
   if (error) {
     return res.status(400).json({ error })
   }
 
-  // Limite globale à passer par IP si on se fait spam
+  // limite globale à passer par IP si on se fait spam
   const [[{ total }]] = await db.query(
     'SELECT COUNT(*) AS total FROM message WHERE sent_at > NOW() - INTERVAL 1 HOUR',
   )
@@ -91,7 +91,7 @@ app.post('/api/messages', async (req, res) => {
       .json({ error: 'Trop de messages reçus, réessayez plus tard.' })
   }
 
-  // Les ? bloquent les injections SQL
+  // les ? bloquent les injections SQL
   await db.execute(
     'INSERT INTO message (name, email, subject, content, profile_id) VALUES (?, ?, ?, ?, 1)',
     [message.name, message.email, message.subject, message.content],
@@ -99,14 +99,14 @@ app.post('/api/messages', async (req, res) => {
   res.status(201).json({ ok: true })
 })
 
-// Si une route plante on arrive ici
-// Le détail reste dans le terminal
+// si une route crash on arrive ici
+// le détail reste dans le terminal
 app.use((error, req, res, next) => {
-  // Réponse déjà partie
+  // réponse déjà envoyée
   if (res.headersSent) {
     return next(error)
   }
-  // La requête est mauvaise
+  // bad request côté user
   if (error.status >= 400 && error.status < 500) {
     return res.status(error.status).json({ error: 'Requête invalide' })
   }
@@ -114,7 +114,7 @@ app.use((error, req, res, next) => {
   res.status(500).json({ error: 'Erreur interne du serveur' })
 })
 
-// On lance le serveur
+// on run le server
 const port = process.env.PORT || 3001
 app.listen(port, () => {
   console.log(`API lancée sur http://localhost:${port}`)

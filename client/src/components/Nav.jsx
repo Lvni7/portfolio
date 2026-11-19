@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-// Menu du haut
+// menu du haut
 function Nav({ profile }) {
-  // True quand le menu est ouvert
+  // true quand le menu est open
   const [isOpen, setIsOpen] = useState(false)
 
-  // On ferme le menu après un clic sur un lien
+  // on close le menu après un clic sur un lien
   function closeMenu() {
     setIsOpen(false)
   }
@@ -28,7 +28,7 @@ function Nav({ profile }) {
         <span />
       </button>
 
-      {/* Affiché seulement si le menu est ouvert */}
+      {/* affiché seulement si le menu est open */}
       {isOpen && (
         <div className="nav-menu">
           <a href="#projets" onClick={closeMenu}>

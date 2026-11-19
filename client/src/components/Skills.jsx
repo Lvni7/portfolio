@@ -1,6 +1,6 @@
-// Un groupe de compétences en bulles
+// un groupe de skills en bulles
 function SkillGroup({ title, items, soft }) {
-  // Rien à afficher si c'est vide
+  // rien à afficher si c'est vide
   if (items.length === 0) return null
 
   return (
@@ -15,7 +15,7 @@ function SkillGroup({ title, items, soft }) {
   )
 }
 
-// Mes compétences techniques et transversales
+// mes skills techniques et transversales
 function Skills({ skills }) {
   if (skills.length === 0) return null
 

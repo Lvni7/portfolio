@@ -1,6 +1,6 @@
 import { formatPeriod } from '../formatPeriod.js'
 
-// Chiffres clés écrits ici car pas prévus dans le MPD
+// stats écrites ici car pas prévues dans le MPD
 const STATS = {
   ConvoyDoc: [
     { value: '1062', label: 'comptes créés' },
@@ -8,7 +8,7 @@ const STATS = {
   ],
 }
 
-// Les chiffres clés d'un projet
+// les stats d'un projet
 function Stats({ stats }) {
   if (!stats) return null
 
@@ -24,7 +24,7 @@ function Stats({ stats }) {
   )
 }
 
-// Une carte projet
+// une card projet
 function ProjectCard({ project, featured }) {
   return (
     <article className={featured ? 'project project-featured' : 'project'}>
@@ -50,7 +50,7 @@ function ProjectCard({ project, featured }) {
 
         <p className="project-text">{project.description}</p>
 
-        {/* Les compétences utilisées dans ce projet */}
+        {/* les skills utilisés dans ce projet */}
         {project.skills?.length > 0 && (
           <ul className="project-skills">
             {project.skills.map((skill) => (
@@ -77,9 +77,9 @@ function ProjectCard({ project, featured }) {
   )
 }
 
-// Le premier projet en grand puis les autres en grille
+// le premier projet en grand puis les autres en grid
 function Projects({ projects }) {
-  // Rien à afficher si c'est vide
+  // rien à afficher si c'est vide
   if (projects.length === 0) return null
 
   const [featured, ...others] = projects
@@ -98,7 +98,7 @@ function Projects({ projects }) {
         ))}
       </div>
 
-      {/* Pour dire que la liste n'est pas complète */}
+      {/* pour dire que la liste est pas complète */}
       <div className="project-more">
         <p>Et bien plus encore…</p>
         <a className="button button-outline" href="#contact">

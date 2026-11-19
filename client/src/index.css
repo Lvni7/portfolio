@@ -1,21 +1,21 @@
-/* Couleurs et polices du site */
+/* couleurs et fonts du site */
 :root {
   --ink: #1a1011;
   --muted: #5f5051;
   --bg: #fffafa;
   --panel: #f6efee;
   --line: #a08f8d;
-  /* Le rouge vient du fond de la photo de profil */
+  /* le rouge vient du fond de la photo de profil */
   --red-rgb: 247 37 89;
   --red: rgb(var(--red-rgb));
   --sans: 'DM Sans Variable', system-ui, sans-serif;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --gutter: clamp(1rem, 4vw, 3.5rem);
-  /* Marge des côtés plus grande sur grand écran */
+  /* marge des côtés plus grande sur grand écran */
   --side: max(var(--gutter), calc((100% - 90rem) / 2 + var(--gutter)));
 }
 
-/* Styles de base */
+/* styles de base */
 * {
   box-sizing: border-box;
 }
@@ -61,7 +61,7 @@ h3 {
   font-weight: 500;
 }
 
-/* Le mot en italique des titres */
+/* le mot en italique des titres */
 h2 em {
   font-family: var(--serif);
   font-size: 1.14em;
@@ -80,7 +80,7 @@ h2 em {
   place-items: center;
 }
 
-/* Boutons */
+/* buttons */
 .button {
   display: inline-flex;
   align-items: center;
@@ -112,7 +112,7 @@ h2 em {
   color: var(--ink);
 }
 
-/* Menu */
+/* menu */
 .nav {
   position: absolute;
   top: 0;
@@ -133,7 +133,7 @@ h2 em {
   text-decoration: none;
 }
 
-/* Le bouton rond avec ses 3 traits */
+/* le button rond avec ses 3 traits */
 .nav-toggle {
   display: grid;
   place-content: center;
@@ -177,10 +177,10 @@ h2 em {
   background: var(--panel);
 }
 
-/* Halo blanc en haut puis bande rose rouge puis blanc en bas */
+/* halo blanc en haut puis bande rose rouge puis blanc en bas */
 .hero {
-  /* Taille de la photo et du grand titre */
-  /* La photo laisse de la place sur les côtés */
+  /* size de la photo et du grand titre */
+  /* la photo laisse de la place sur les côtés */
   --photo-size: min(46vw, 76dvh, calc(min(100vw, 90rem) - 2 * var(--gutter) - 41rem));
   --title-size: clamp(4.2rem, min(13vw, 19.5dvh), 12rem);
   position: relative;
@@ -189,7 +189,7 @@ h2 em {
   grid-template-columns: 1fr minmax(0, var(--photo-size)) 1fr;
   grid-template-rows: auto auto 1fr auto;
   column-gap: 1.5rem;
-  /* Hauteur de l'écran sans trop de vide */
+  /* hauteur de l'écran sans trop de vide */
   min-height: clamp(38rem, 100dvh, 64rem);
   padding: 3.5rem var(--side) 2.5rem;
   overflow: hidden;
@@ -228,7 +228,7 @@ h2 em {
     var(--bg);
 }
 
-/* Titre derrière la photo et textes devant */
+/* titre derrière la photo et textes devant */
 .hero > :not(.hero-visual) {
   z-index: 3;
 }
@@ -283,7 +283,7 @@ h2 em {
   line-height: 0.95;
 }
 
-/* Les cheveux remontent sur le bas du grand titre */
+/* les cheveux passent sur le bas du grand titre */
 .hero-visual {
   position: relative;
   grid-column: 2;
@@ -295,7 +295,7 @@ h2 em {
   margin-bottom: calc(-0.2 * var(--photo-size));
 }
 
-/* Fondu vers le blanc qui commence au col du t-shirt */
+/* fade vers le blanc qui commence au col du t-shirt */
 .hero-visual::after {
   position: absolute;
   top: 72%;
@@ -314,7 +314,7 @@ h2 em {
   pointer-events: none;
 }
 
-/* La photo garde juste la tête et son halo */
+/* la photo garde juste la tête et son halo */
 .hero-photo {
   width: 100%;
   -webkit-mask-image:
@@ -327,14 +327,14 @@ h2 em {
   mask-composite: intersect;
 }
 
-/* La tête détourée passe devant le titre */
+/* la tête cut passe devant le titre */
 .hero-photo-cut {
   position: absolute;
   inset: 0;
   z-index: 2;
 }
 
-/* La pastille et la phrase sont placées dans le rouge */
+/* le badge et la phrase sont dans le rouge */
 .hero-badge {
   display: flex;
   grid-column: 1;
@@ -350,7 +350,7 @@ h2 em {
   box-shadow: 0 8px 30px rgb(110 10 40 / 0.14);
 }
 
-/* Le point rouge veut dire disponible */
+/* le point rouge veut dire dispo */
 .hero-badge::before {
   flex: none;
   width: 0.9rem;
@@ -361,7 +361,7 @@ h2 em {
   content: '';
 }
 
-/* Le stage sur une ligne et les dates en dessous */
+/* le stage sur une ligne et les dates en dessous */
 .hero-badge-text {
   display: grid;
   font-size: 0.95rem;
@@ -410,7 +410,7 @@ h2 em {
   justify-self: end;
 }
 
-/* Grande phrase avec les services autour */
+/* grande phrase avec les services autour */
 .statement {
   display: grid;
   grid-template-columns: 1fr minmax(0, 46rem) 1fr;
@@ -435,7 +435,7 @@ h2 em {
   line-height: 1.3;
 }
 
-/* Le résultat à la ligne avec le gain en rouge */
+/* le résultat à la ligne avec le gain en rouge */
 .statement-result {
   display: block;
   margin-top: 0.3em;
@@ -447,7 +447,7 @@ h2 em {
   font-weight: 600;
 }
 
-/* Les bulles de services un peu penchées */
+/* les bulles de services un peu penchées */
 .statement-pills {
   display: grid;
   gap: 2.5rem;
@@ -492,7 +492,7 @@ h2 em {
   rotate: 3deg;
 }
 
-/* Une couleur différente par bulle */
+/* une couleur différente par bulle */
 .statement-icon {
   display: grid;
   place-items: center;
@@ -511,7 +511,7 @@ h2 em {
   background: #fb7a9a;
 }
 
-/* Les avis côte à côte séparés par un trait */
+/* les avis côte à côte séparés par un trait */
 .testimonial-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
@@ -532,7 +532,7 @@ h2 em {
   border-left: 1px solid var(--panel);
 }
 
-/* Un vrai guillemet en gras comme sur l'inspiration */
+/* un vrai guillemet en bold comme sur l'inspi */
 .testimonial-mark {
   position: absolute;
   top: -0.15em;
@@ -577,7 +577,7 @@ h2 em {
   font-size: 0.95rem;
 }
 
-/* Le projet principal en grand avec ses chiffres */
+/* le projet principal en grand avec ses stats */
 .project-featured {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
@@ -595,7 +595,7 @@ h2 em {
   letter-spacing: -0.02em;
 }
 
-/* Les chiffres en grand et leur légende dessous */
+/* les stats en grand et leur label dessous */
 .project-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
@@ -603,7 +603,7 @@ h2 em {
   margin: 1.5rem 0 0;
 }
 
-/* Le chiffre passe au-dessus de sa légende */
+/* le chiffre passe au-dessus de son label */
 .project-stats div {
   display: flex;
   flex-direction: column;
@@ -627,7 +627,7 @@ h2 em {
   font-size: 0.9rem;
 }
 
-/* Les autres projets en grille */
+/* les autres projets en grid */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -681,7 +681,7 @@ h2 em {
   font-weight: 500;
 }
 
-/* Les petites étiquettes de technos sous chaque projet */
+/* les petits tags de technos sous chaque projet */
 .project-skills {
   display: flex;
   flex-wrap: wrap;
@@ -699,7 +699,7 @@ h2 em {
   font-size: 0.85rem;
 }
 
-/* Techniques à gauche et transversales à droite */
+/* techniques à gauche et transversales à droite */
 .skill-groups {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
@@ -731,13 +731,13 @@ h2 em {
   font-size: 1.05rem;
 }
 
-/* Les qualités ressortent en rose */
+/* les soft skills ressortent en rose */
 .skill-list-soft li {
   background: rgb(var(--red-rgb) / 0.1);
   box-shadow: inset 0 0 0 1px rgb(var(--red-rgb) / 0.3);
 }
 
-/* La ligne de fin de la liste des projets */
+/* la ligne de fin de la liste des projets */
 .project-more {
   display: flex;
   flex-wrap: wrap;
@@ -756,14 +756,14 @@ h2 em {
   line-height: 1.1;
 }
 
-/* Toute la carte devient cliquable */
+/* toute la card devient cliquable */
 .project-link::after {
   position: absolute;
   inset: 0;
   content: '';
 }
 
-/* Parcours */
+/* parcours */
 .about {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -810,7 +810,7 @@ h2 em {
   margin-top: 0.4rem;
 }
 
-/* Contact avec le rouge qui monte du bas */
+/* contact avec le rouge qui monte du bas */
 .contact {
   padding: clamp(4rem, 9vw, 7.5rem) var(--gutter);
   background:
@@ -843,7 +843,7 @@ h2 em {
   text-align: left;
 }
 
-/* Tout prend la largeur sauf nom et email */
+/* tout prend la full width sauf nom et email */
 .contact-form > * {
   grid-column: 1 / -1;
 }
@@ -883,13 +883,13 @@ textarea {
   display: none;
 }
 
-/* Piège à bots hors de l'écran */
+/* piège à bots hors de l'écran */
 .honeypot {
   position: absolute;
   left: -9999px;
 }
 
-/* Bas de page avec le grand nom */
+/* footer avec le grand nom */
 .footer {
   padding: 2.5rem var(--side) 0;
   overflow: hidden;
@@ -906,12 +906,12 @@ textarea {
   color: var(--muted);
 }
 
-/* Le bas des lettres est coupé par le bord de la page */
+/* le bas des lettres est coupé par le bord de la page */
 .footer-name {
   margin-top: 1rem;
   margin-bottom: -0.3em;
   font-family: var(--serif);
-  /* Grand mais jamais plus large que le contenu */
+  /* grand mais jamais plus large que le contenu */
   font-size: min(23vw, 20.5rem);
   font-style: italic;
   font-weight: 300;
@@ -920,7 +920,7 @@ textarea {
   white-space: nowrap;
 }
 
-/* Tablette et mobile sur une colonne */
+/* tablette et mobile sur une colonne */
 @media (max-width: 1080px) {
   .hero {
     display: flex;
@@ -930,7 +930,7 @@ textarea {
     text-align: center;
   }
 
-  /* Le hero prend juste la hauteur de son contenu */
+  /* le hero prend juste la hauteur de son contenu */
   .hero {
     --photo-size: min(92vw, 30rem);
     min-height: auto;
@@ -960,7 +960,7 @@ textarea {
     align-self: center;
   }
 
-  /* La phrase d'abord puis les bulles en ligne dessous */
+  /* la phrase d'abord puis les bulles en ligne dessous */
   .statement {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1037,12 +1037,12 @@ textarea {
     margin-left: 0;
   }
 
-  /* Liens assez hauts pour le doigt */
+  /* liens assez hauts pour le doigt */
   .footer-links a {
     padding-block: 0.6rem;
   }
 
-  /* Les avis l'un sous l'autre avec un trait au-dessus */
+  /* les avis l'un sous l'autre avec un trait au-dessus */
   .testimonial + .testimonial {
     padding-top: 3rem;
     padding-left: 0;
@@ -1061,7 +1061,7 @@ textarea {
   }
 }
 
-/* Animations coupées si le user préfère */
+/* animations off si le user préfère */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -1075,7 +1075,7 @@ textarea {
     animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  /* La photo apparaît sans bouger */
+  /* la photo apparaît sans bouger */
   .hero-photo {
     animation: appear 1s ease 0.1s both;
   }

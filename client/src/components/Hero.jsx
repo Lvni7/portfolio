@@ -1,15 +1,15 @@
 import { LaurelWreathLeft01Icon, LaurelWreathRight01Icon } from 'hugeicons-react'
 
-// Haut de la page
+// le hero en haut de la page
 function Hero({ profile }) {
-  // Les versions avec halo et détourée de la photo
+  // les versions glow et cut de la photo
   const glowPhoto = profile.photo?.replace(/\.\w+$/, '-glow.webp')
   const cutPhoto = profile.photo?.replace(/\.\w+$/, '-cut.webp')
 
   return (
     <section className="hero">
       <p className="hero-proof">
-        {/* Le chiffre entre deux branches de laurier */}
+        {/* le chiffre entre deux branches de laurier */}
         <span className="hero-laurel">
           <LaurelWreathLeft01Icon size={40} strokeWidth={1.5} aria-hidden="true" />
           <strong>+10</strong>
@@ -19,7 +19,7 @@ function Hero({ profile }) {
       </p>
 
       <h1 className="hero-title">
-        {/* Le nom en grand pour le personal branding */}
+        {/* le nom en grand pour le personal branding */}
         <span>
           {profile.first_name} {profile.last_name}
         </span>
@@ -33,7 +33,7 @@ function Hero({ profile }) {
         </span>
       </p>
 
-      {/* Le halo passe derrière le titre et la tête détourée devant */}
+      {/* le halo passe derrière le titre et la tête cut devant */}
       {profile.photo && (
         <div className="hero-visual">
           <img
@@ -43,7 +43,7 @@ function Hero({ profile }) {
             width="1400"
             height="1400"
             onError={(event) => {
-              // Pas de version avec halo donc on prend la photo normale
+              // pas de version glow donc fallback sur la photo normale
               event.currentTarget.onerror = null
               event.currentTarget.src = `/uploads/${profile.photo}`
             }}
@@ -55,7 +55,7 @@ function Hero({ profile }) {
             width="1400"
             height="1400"
             onError={(event) => {
-              // Pas de version détourée donc on la cache
+              // pas de version cut donc on la hide
               event.currentTarget.hidden = true
             }}
           />
@@ -63,7 +63,7 @@ function Hero({ profile }) {
       )}
 
 
-      {/* Chiffre réel de ConvoyDoc */}
+      {/* vrai chiffre de ConvoyDoc */}
       <p className="hero-trust">
         <img src="/convoydoc.webp" alt="" width="40" height="40" />
         <span>

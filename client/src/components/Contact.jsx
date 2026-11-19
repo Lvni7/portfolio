@@ -1,32 +1,32 @@
 import { useState } from 'react'
 
-// Form vide
+// form vide
 const EMPTY_FORM = { name: '', email: '', subject: '', content: '', website: '' }
 
 function Contact({ email }) {
-  // Ce que le user tape
+  // ce que le user tape
   const [form, setForm] = useState(EMPTY_FORM)
-  // True pendant l'envoi
+  // true pendant l'envoi
   const [isSending, setIsSending] = useState(false)
-  // Message affiché après l'envoi
+  // message affiché après l'envoi
   const [feedback, setFeedback] = useState('')
 
-  // Update le champ modifié
+  // update le champ modifié
   function handleChange(event) {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
-  // Lancé au clic sur Envoyer
+  // run au clic sur Envoyer
   async function handleSubmit(event) {
-    // Évite de recharger la page
+    // évite le reload de la page
     event.preventDefault()
     setIsSending(true)
     setFeedback('')
 
-    // Message si ça se passe mal
+    // message si ça fail
     let result = 'Envoi impossible, réessayez plus tard.'
     try {
-      // Call la route du back
+      // call la route du back
       const response = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -34,16 +34,16 @@ function Contact({ email }) {
       })
 
       if (response.ok) {
-        // Envoyé donc on vide le form
+        // envoyé donc on reset le form
         setForm(EMPTY_FORM)
         result = 'Merci, votre message a bien été envoyé.'
       } else {
-        // On affiche la raison du refus
+        // on affiche la raison du refus
         const data = await response.json()
         result = data.error ?? result
       }
     } catch {
-      // Le back ne répond pas
+      // le back répond pas
     }
 
     setFeedback(result)
@@ -108,7 +108,7 @@ function Contact({ email }) {
           />
         </label>
 
-        {/* Piège à bots caché */}
+        {/* piège à bots caché */}
         <div className="honeypot" aria-hidden="true">
           <label>
             Site web
@@ -122,12 +122,12 @@ function Contact({ email }) {
           </label>
         </div>
 
-        {/* Bloqué pendant l'envoi */}
+        {/* disabled pendant l'envoi */}
         <button className="button" type="submit" disabled={isSending}>
           {isSending ? 'Envoi…' : 'Envoyer'}
         </button>
 
-        {/* Lu par les lecteurs d'écran */}
+        {/* lu par les screen readers */}
         <p role="status">{feedback}</p>
       </form>
     </section>

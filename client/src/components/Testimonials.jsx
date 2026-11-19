@@ -1,4 +1,4 @@
-// Avis réels avec leur source
+// vrais avis avec leur source
 const TESTIMONIALS = [
   {
     quote:
@@ -18,7 +18,7 @@ const TESTIMONIALS = [
   },
 ]
 
-// Ce que les gens disent de mon travail
+// ce que les gens disent de mon taff
 function Testimonials() {
   return (
     <section className="section testimonials">

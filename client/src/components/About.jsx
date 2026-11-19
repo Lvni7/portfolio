@@ -1,8 +1,8 @@
 import { formatPeriod } from '../formatPeriod.js'
 
-// Présentation et expériences
+// présentation et expériences
 function About({ profile, experiences }) {
-  // Un paragraphe par ligne de la bio
+  // un paragraphe par ligne de la bio
   const paragraphs = profile.bio.split('\n')
 
   return (
@@ -30,7 +30,7 @@ function About({ profile, experiences }) {
           </p>
         ))}
 
-        {/* Le CV reste accessible direct ici et dans le menu */}
+        {/* le CV reste dispo direct ici et dans le menu */}
         {profile.cv && (
           <a className="button about-cv" href="/api/cv">
             Télécharger mon CV

@@ -9,24 +9,24 @@ import Skills from './components/Skills.jsx'
 import Statement from './components/Statement.jsx'
 import Testimonials from './components/Testimonials.jsx'
 
-// Call une route et récupère le JSON
+// call une route et récupère le JSON
 async function getJson(url) {
   const response = await fetch(url)
-  // On throw si le back répond une erreur
+  // on throw si le back répond une erreur
   if (!response.ok) throw new Error(`Erreur ${response.status}`)
   return response.json()
 }
 
-// Composant principal de la page
+// composant principal de la page
 function App() {
-  // Profil projets et compétences
+  // profil projets et skills
   const [data, setData] = useState(null)
-  // True si le chargement plante
+  // true si le loading crash
   const [hasError, setHasError] = useState(false)
 
-  // Run une seule fois à l'ouverture
+  // run une seule fois à l'ouverture
   useEffect(() => {
-    // Lance les 3 calls en même temps
+    // lance les 3 calls en même temps
     Promise.all([
       getJson('/api/profile'),
       getJson('/api/projects'),
@@ -36,24 +36,24 @@ function App() {
       .catch(() => setHasError(true))
   }, [])
 
-  // Ça a planté
+  // ça a crash
   if (hasError) {
     return <p className="status-page">Le site est momentanément indisponible.</p>
   }
 
-  // Pas encore chargé
+  // pas encore load
   if (!data) {
     return <p className="status-page">Chargement…</p>
   }
 
   const { profile, projects, skills } = data
 
-  // Profil encore vide
+  // profil encore vide
   if (!profile) {
     return <p className="status-page">Profil à compléter.</p>
   }
 
-  // On passe les data en props
+  // on passe les data en props
   return (
     <>
       <Nav profile={profile} />

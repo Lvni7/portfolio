@@ -1,7 +1,7 @@
-// Année affichée dans le footer
+// année affichée dans le footer
 const YEAR = new Date().getFullYear()
 
-// Bas de la page
+// le footer
 function Footer({ profile }) {
   const fullName = `${profile.first_name} ${profile.last_name}`
 
@@ -25,7 +25,7 @@ function Footer({ profile }) {
         </span>
       </div>
 
-      {/* Juste décoratif donc caché aux lecteurs d'écran */}
+      {/* juste déco donc caché aux screen readers */}
       <p className="footer-name" aria-hidden="true">
         {fullName}
       </p>
